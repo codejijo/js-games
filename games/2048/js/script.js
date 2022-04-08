@@ -13,6 +13,10 @@ function setupInput() {
 
 setupInput();
 
+// for mobile keypress
+
+document.querySelectorAll(".key").forEach((e, i) => e.addEventListener("click", () => handleClick(i)))
+
 async function handleInput(e) {
     switch (e.key) {
         case 'ArrowUp':
@@ -47,7 +51,47 @@ async function handleInput(e) {
             setupInput()
             break
     }
+    getNew();
+}
 
+async function handleClick(e) {
+    switch (e) {
+        case 0:
+            if (!canMoveUp()) {
+                setupInput();
+                return
+            }
+            await moveUp();
+            break
+        case 2:
+            if (!canMoveDown()) {
+                setupInput();
+                return
+            }
+            await moveDown();
+            break
+        case 1:
+            if (!canMoveLeft()) {
+                setupInput();
+                return
+            }
+            await moveLeft();
+            break
+        case 3:
+            if (!canMoveRight()) {
+                setupInput();
+                return
+            }
+            await moveRight();
+            break
+        default:
+            setupInput()
+            break
+    }
+    getNew();
+}
+
+function getNew() {
     grid.cells.forEach(cell => cell.mergeTiles())
 
     const newTile = new Tile(gameBoard);
@@ -59,7 +103,7 @@ async function handleInput(e) {
         })
         return
     }
-    
+
     setupInput();
 }
 
