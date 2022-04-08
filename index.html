@@ -15,7 +15,7 @@
         function injectData(game) {
             [...game].forEach(el => {
                 const newLink = document.createElement("a")
-                newLink.href = `/${el.path}/index.html`;
+                newLink.href = `/js-games/${el.path}/index.html`;
                 newLink.innerText = el.name;
                 newLink.classList.add("card")
 
