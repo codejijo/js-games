@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        const container = document.getElementById("container");
+
+        function injectData(game) {
+            [...game].forEach(el => {
+                const newLink = document.createElement("a")
+                newLink.href = `/${el.path}/index.html`;
+                newLink.innerText = el.name;
+                newLink.classList.add("card")
+
+                container.append(newLink);
+            })
+        }
+
+        fetch("https://api.github.com/repos/codejijo/js-games/contents/games?ref=main")
+        .then(res => res.json())
+        .then(data => injectData(data));
+    </script>
+</body>
+</html>
